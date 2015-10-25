@@ -32,12 +32,18 @@ Synapse::Synapse(Neuron * const apost, Neuron * const apre,
       post->addSynapseIn(this);
     }
     weight = 0;
+    delta_weight = 0;
 }
 
 Synapse::~Synapse()
 {
     if (pre) pre->removeSynapseOut(this);
     if (post) post->removeSynapseIn(this);
+}
+
+const double& Synapse::getDeltaWeight() const
+{
+    return delta_weight;
 }
 
 Neuron* Synapse::getPost() const
@@ -53,6 +59,16 @@ Neuron* Synapse::getPre() const
 const double& Synapse::getWeight() const
 {
     return weight;
+}
+
+void Synapse::setDeltaWeight(const double & aweight)
+{
+    delta_weight = aweight;
+}
+
+void Synapse::updateWeight()
+{
+    weight += delta_weight;
 }
 
 void Synapse::setWeight(const double & aweight)

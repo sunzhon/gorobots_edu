@@ -1,7 +1,8 @@
+TAGS
 .project
 .cproject
 .history
-Makefile
+build
 Makefile.depend
 start
 doxygen.warn
@@ -9,6 +10,7 @@ doxygen.warn
 log.settings
 video0*
 *.a
+*.d
 *.o
 *.so
 *.lo
