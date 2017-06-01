@@ -42,7 +42,7 @@ export PATH = /home/poma/bin:$PATH
 \subsubsection{Fail to run setUpGoRotobots.sh}
 \begin{lstlisting}
 
-You might have to change permission ``chmod u+x setUpGoRobots.sh'' 
+You might have to change permission ``chmod u+x setUpGoRobots.sh''
 if you cannot execute.
 
 You should also try to update your system.
@@ -220,13 +220,17 @@ $ sudo apt-get install qtdeclarative5-dev qt5-default
 
 
 \subsection{Serial interface}
+
 \begin{lstlisting}
+
 > sudo usermod -a -G dialout username
 > Then restart your PC
+
 
 \end{lstlisting}
 
 \subsection{Public key to push to assembla}
+
 \begin{lstlisting}
 
 For the first time to push from your PC to assembla, you need to
@@ -242,6 +246,114 @@ Please also check instructions on assembla:
 
 https://www.assembla.com/spaces/dshaikh-gorobots-fork/git/instructions
 
+
 \end{lstlisting}
 
+
+
+\subsection{Setting up LPZ robots and gorobots of Mac (OSX)}
+
+\begin{lstlisting}
+
+1) Download Ubuntu on you Mac (https://www.ubuntu.com/download/desktop)
+,e.g., Ubuntu 16.04.1 LTS
+
+2) Install VirtualBox on you Mac (https://www.virtualbox.org/wiki/Downloads)
+
+3) Install Ubuntu on VirtualBox 
+(http://www.simplehelp.net/2015/06/09/how-to-install-ubuntu-onyour-mac/)
+
+4) Setting up LPZ robots and gorobots on Ubuntu
+(http://manoonpong.com/MOROCO/lpz_guide.txt)
+
+(On Ubuntu)
+
+5) Go to USB settings > Ports > USB > Adds new USB filter > Select your USB port > Ok
+
+6) Run the program
+
+To control a robot via serial interface, if you cannot run the program
+because of serial port terminal problems(cannot open /dev/ttyUSB0), please try this:
+
+1) Adding yourself to the dialout group, run the command below.
+$ sudo adducer <your user> dialout
+$ sudo reboot
+
+2) Open the terminal and run the program again.
+
+You should now have a window with the hexapod simulation running.
+
+
+\end{lstlisting}
+
+
+\subsection{Setting up LPZ robots and running it on the SDU super Computer Abacus}
+
+\begin{lstlisting}
+
+##After dependencies are installed change 
+the ode_robots-config.m4 file to point to /home/<user>/lib64 instead of using -lm
+
+xutils-dev 
+ftp://rpmfind.net/linux/opensuse/distribution/12.1
+/repo/oss/suse/x86_64/xorg-x11-util-devel-7.6-13.1.2.x86_64.rpm
+rpm2cpio to-install.rpm | cpio -idv
+
+libreadline-dev  
+ftp://ftp.gnu.org/gnu/readline/readline-6.3.tar.gz
+configure --prefix /home/almeh
+make
+make install
+
+libgsl0-dev 
+ftp://ftp.gnu.org/gnu/gsl/gsl-2.3.tar.gz
+configure --prefix /home/almeh
+make
+make install
+
+
+libglu-dev 
+#Should be provided by the mesa below
+
+libgl1-mesa-dev 
+ftp://195.220.108.108/linux/sourceforge/m/ma/magicspecs
+/apt/3.0/x86_64/RPMS.m/mesa-libGL-devel-10.6.3-2.20150729mgc30.x86_64.rpm
+rpm2cpio to-install.rpm | cpio -idv
+
+
+freeglut3-dev  
+cmake -DCMAKE_INSTALL_PREFIX=/home/almir
+make 
+make install
+
+libopenscenegraph-dev 
+
+### CANT USE THIS Missing class GUIEventHandlerVisitor
+
+http://trac.openscenegraph.org/downloads/developer_releases/OpenSceneGraph-3.4.0.zip
+http://www.openscenegraph.org/downloads/stable_releases/OpenSceneGraph-3.0.1
+/source/OpenSceneGraph-3.0.1.zip
+unzip
+cmake -DCMAKE_INSTALL_PREFIX=/home/almir
+make
+make install
+
+libqt4-develop /// SUSE version
+ftp://rpmfind.net/linux/opensuse/update/leap/42.1/oss
+/x86_64/libqt4-devel-4.8.6-13.1.x86_64.rpm
+
+
+libqt4-qt3support 
+ftp://195.220.108.108/linux/opensuse/update
+/leap/42.1/oss/x86_64/libqt4-qt3support-4.8.6-13.1.x86_64.rpm
+
+## Did not install below ##
+libqt4-dev 
+libqt4-opengl 
+libqt4-opengl-dev 
+gnuplot 
+gnuplot-x11 
+libncurses5-dev
+
+\end{lstlisting}
 
