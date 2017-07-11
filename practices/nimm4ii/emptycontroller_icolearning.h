@@ -117,6 +117,12 @@ class EmptyController : public AbstractController {
       //XXXXXXXXXX
       //XXXXXXXXXX
 
+       exp_output = 0.0;
+       exploration_g = 0.0;
+       exploration_lowpass_g = 0.0;
+       exploration_lowpass_old_g = 0.0;
+
+
 
       //For students, Initialization -end//
 
