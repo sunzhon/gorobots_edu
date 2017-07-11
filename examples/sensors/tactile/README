@@ -49,4 +49,8 @@ Saving to file ended
 >> 
 
 
+If it cannot save data:
+Check your openCV and use the latest version of openCV
+
+
 

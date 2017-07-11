@@ -25,7 +25,12 @@ img = np.zeros((700, 1000, 3), dtype='uint8')
 img[:,:,0] = 160
 img[:,:,1] = 150
 img[:,:,2] = 140
-cv2.namedWindow('image', 0)
+cv2.namedWindow('image', cv2.WINDOW_AUTOSIZE)
+cv2.imshow('image', img)
+import matplotlib.pyplot as plt
+#plt.ion()
+#plt.imshow(img)
+#cv2.waitKey(20)
 #cv2.resizeWindow('image', 911,911)
 
 ########################################################
@@ -290,9 +295,10 @@ class ShowGUI(threading.Thread):
 		threading.Thread.__init__(self)
 		self.sensors = args
 		self.eventStop = threading.Event()
-		with open('log.csv', 'wb') as f:
-			self.writer = csv.writer(f)
-			f.close()
+		for i in range(0,6):
+			with open('log%d.csv'%i, 'wb') as f:
+				self.writer = csv.writer(f)
+				f.close()
 		
 	def run(self):
 		status = 0
@@ -315,8 +321,9 @@ class ShowGUI(threading.Thread):
 								self.sensors[i].show_sensor_gui()
 								if (save_to_file == True):
 									with open(r'log%d.csv'%i, 'a') as f:
+										#print "Data available"
 										data_to_save = np.empty([253],dtype = np.int32)  #create empty array
-										data_to_save[0] = self.sensors[i].time_for_saving #save the timestamp
+										data_to_save[0] = self.sensors[i].time_for_saving * 1000 #save the timestamp
 										data_to_save[1] = self.sensors[i].port #port
 										data_to_save[2:253] = self.sensors[i].values_16bit[0:251]
 										self.writer = csv.writer(f)
@@ -329,6 +336,7 @@ class ShowGUI(threading.Thread):
 			time_delta_gui = time_gui_end- time_gui_start
 			cv2.putText(img_with_text, "{0:.3f}".format(time_delta_gui) + " s GUI refresh",(500,20), font, .7,(0,0,0))		
 			cv2.imshow('image', img_with_text)
+			#cv2.waitKey(5)
 			#time.sleep(0.010)
 			
 
@@ -338,10 +346,10 @@ read = 0
 s1 = Sensor('Sensor 1', ip, 10001, 400, 50, False, True, False)
 s1.sensor_init()
 ###########s1.sensor_info()
-s2 = Sensor('Sensor 2', ip, 10002, 400, 250, True, True, False)
+s2 = Sensor('Sensor 2', ip, 10002, 400, 300, True, True, False)
 s2.sensor_init()
 
-s3 = Sensor('Sensor 3', ip, 10003, 400, 400, True, True, False)
+s3 = Sensor('Sensor 3', ip, 10003, 400, 500, True, True, False)
 s3.sensor_init()
 
 s4 = Sensor('Sensor 4', ip, 10004, 800, 50, True, True, True)
@@ -375,7 +383,7 @@ while 1 :
 			print "Saving to file ended"
 		else:
 			save_to_file = True
-			#time_start_saving = timer()
+			time_start_saving = timer()
 			print "Saving to file started"
 	if read == "v": #starts the visualizer
 		try:
@@ -388,6 +396,6 @@ while 1 :
 		except:
 			print "Error: unable to start thread"
 
-	
+
 		
 	
