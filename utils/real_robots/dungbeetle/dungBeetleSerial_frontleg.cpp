@@ -205,43 +205,48 @@ void dungBeetleSerial::setMotors(const motor* motors, int motornumber){
 
 	//[-45,.., 45 deg]
 	//Coxa1_right
-	servoPosMin[0] = 20;//200;
-	servoPosMax[0] = 245;//20;
+	servoPosMin[0] = 30;
+	servoPosMax[0] = 140;
 	//Coxa2_right
-	servoPosMin[1] = 240;//160;
-	servoPosMax[1] = 100;//80;
+	servoPosMin[1] = 150;
+	servoPosMax[1] = 80;
 	//Femur_right
-	servoPosMin[2] = 170;//170;
-	servoPosMax[2] = 10;//80;
+	servoPosMin[2] = 120;
+	servoPosMax[2] = 230;
 	//Tibia_right
-	servoPosMin[3] = 20;//200;
-	servoPosMax[3] = 245;//20;
+	servoPosMin[3] = 40;
+	servoPosMax[3] = 240;
 
 	//Coxa1_left
-	servoPosMin[4] = 240;//160;
-	servoPosMax[4] = 100;//80;
+	servoPosMin[4] = 200;
+	servoPosMax[4] = 50;
 	//Coxa2_left
-	servoPosMin[5] = 170;//170;
-	servoPosMax[5] = 10;//80;
+	servoPosMin[5] = 160;
+	servoPosMax[5] = 250;
 	//Femur_left
-	servoPosMin[6] = 20;//200;
-	servoPosMax[6] = 245;//20;
+	servoPosMin[6] = 170;
+	servoPosMax[6] = 50;
 	//Tibia_left
-	servoPosMin[7] = 240;//160;
-	servoPosMax[7] = 100;//80;
+	servoPosMin[7] = 210;//160;
+	servoPosMax[7] = 40;//80;
 
 	//Body
-	servoPosMin[8] = 240;//160;
-	servoPosMax[8] = 100;//80;
+	servoPosMin[8] = 240;
+	servoPosMax[8] = 40;
 
 	// ##################### move motors ################
 	for(int i=0;i<DUNGBEETLE_FRONTLEG_MOTOR_MAX;i++)
 	{
-		motorCom[i] = motors[i];// set LpzMotor value before processing and sending ??????????what is this?
+		motorCom[i] =  motors[i];// set LpzMotor value before processing and sending ??????????what is this?
 
 	  if (motorCom[i]>1) motorCom[i]=1;
 	  if (motorCom[i]<-1) motorCom[i]=-1;
 	}
+
+  servoPosMin[0] = 30;
+  servoPosMax[0] = 140;
+
+	//motorCom[5] = 1;
 
 	//COXA1_RIGHT-J1
 	serialPos[32] = (int) (double)(((motorCom[0]+1.0)/2.0)*(servoPosMax[0]-servoPosMin[0])+servoPosMin[0]) ;
@@ -260,7 +265,7 @@ void dungBeetleSerial::setMotors(const motor* motors, int motornumber){
 	//FEMUR_LEFT-J3
 	serialPos[26] = (int) (double)(((motorCom[6]+1.0)/2.0)*(servoPosMax[6]-servoPosMin[6])+servoPosMin[6]) ;
 	//TIBIA_LEFT-J4
-	serialPos[25] = (int) (double)(((motorCom[7]+1.0)/2.0)*(servoPosMax[7]-servoPosMin[7])+servoPosMin[7]) ;
+	serialPos[25] =  (int) (double)(((motorCom[7]+1.0)/2.0)*(servoPosMax[7]-servoPosMin[7])+servoPosMin[7]) ;
 
 
 	//Body-J1
